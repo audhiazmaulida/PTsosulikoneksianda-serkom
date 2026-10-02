@@ -1,0 +1,86 @@
+<div class="bg-white rounded-xl border border-gray-100 shadow-sm p-6 lg:p-8">
+
+    {{-- Foto Utama --}}
+    <div class="mb-5">
+        <label class="block text-sm font-semibold text-navy mb-2">Foto Utama</label>
+
+@if (($artikel ?? null) && $artikel->gambar)
+    <img src="{{ $artikel->gambar_url }}" alt="Foto saat ini" class="w-32 h-32 object-cover rounded-lg mb-3">
+@endif
+
+<img id="previewGambar" alt="Preview" class="w-32 h-32 object-cover rounded-lg mb-3 hidden">
+        <label for="gambar" class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-200 rounded-xl py-8 cursor-pointer hover:border-navy/40 transition-colors">
+            <span class="text-2xl">🖼️</span>
+            <span class="text-sm text-gray-500">Klik untuk upload foto atau drag and drop</span>
+            <span class="text-xs text-gray-400">JPG, PNG, maks 2MB</span>
+        </label>
+        <input type="file" id="gambar" name="gambar" accept="image/*" class="hidden">
+        <p id="nama-file-terpilih" class="text-xs text-gray-500 mt-2"></p>
+
+        @error('gambar')
+            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+        @enderror
+    </div>
+
+    {{-- Judul Artikel --}}
+    <div class="mb-5">
+        <label for="judul" class="block text-sm font-semibold text-navy mb-2">Judul Artikel</label>
+        <input type="text" id="judul" name="judul" value="{{ old('judul', ($artikel ?? null)?->judul) }}"
+               placeholder="Masukkan judul artikel"
+               class="w-full px-4 py-3 rounded-lg border {{ $errors->has('judul') ? 'border-red-400' : 'border-gray-200' }} text-sm focus:outline-none focus:ring-2 focus:ring-navy/20">
+        @error('judul')
+            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+        @enderror
+    </div>
+
+    {{-- Kategori + Tanggal Publikasi (2 kolom) --}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+        <div>
+            <label for="kategori" class="block text-sm font-semibold text-navy mb-2">Kategori</label>
+            <select id="kategori" name="kategori"
+                    class="w-full px-4 py-3 rounded-lg border {{ $errors->has('kategori') ? 'border-red-400' : 'border-gray-200' }} text-sm focus:outline-none focus:ring-2 focus:ring-navy/20">
+                @foreach ($kategoriOptions as $kategori)
+                    <option value="{{ $kategori }}" {{ old('kategori', ($artikel ?? null)?->kategori) === $kategori ? 'selected' : '' }}>
+                        {{ $kategori }}
+                    </option>
+                @endforeach
+            </select>
+            @error('kategori')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="tanggal_publikasi" class="block text-sm font-semibold text-navy mb-2">Tanggal Publikasi</label>
+            <input type="date" id="tanggal_publikasi" name="tanggal_publikasi"
+                   value="{{ old('tanggal_publikasi', ($artikel ?? null)?->tanggal_publikasi?->format('Y-m-d')) }}"
+                   class="w-full px-4 py-3 rounded-lg border {{ $errors->has('tanggal_publikasi') ? 'border-red-400' : 'border-gray-200' }} text-sm focus:outline-none focus:ring-2 focus:ring-navy/20">
+            @error('tanggal_publikasi')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+    </div>
+
+    {{-- Deskripsi --}}
+    <div class="mb-6">
+        <label for="deskripsi" class="block text-sm font-semibold text-navy mb-2">Deskripsi Singkat / Konten</label>
+        <textarea id="deskripsi" name="deskripsi" rows="5"
+                  placeholder="Tulis isi artikel di sini..."
+                  class="w-full px-4 py-3 rounded-lg border {{ $errors->has('deskripsi') ? 'border-red-400' : 'border-gray-200' }} text-sm focus:outline-none focus:ring-2 focus:ring-navy/20 resize-none">{{ old('deskripsi', ($artikel ?? null)?->deskripsi) }}</textarea>
+        @error('deskripsi')
+            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+        @enderror
+    </div>
+
+    {{-- Tombol --}}
+    <div class="flex justify-end gap-3">
+        <a href="{{ route('admin.artikel.index') }}"
+           class="px-6 py-3 rounded-lg border border-gray-200 text-gray-600 text-sm font-semibold hover:bg-gray-50 transition-colors">
+            Batal
+        </a>
+        <button type="submit"
+                class="bg-navy hover:bg-navy-light text-white text-sm font-semibold px-6 py-3 rounded-lg transition-colors">
+            💾 Simpan
+        </button>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+/* ============================================= */
+/* FOTO SEJARAH — border dekoratif krem di belakang foto */
+/* ============================================= */
+
+.photo-decoration {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    width: 100%;
+    height: 100%;
+    background: #FDF6E3; /* krem lembut, cuma dekorasi di belakang foto */
+    border-radius: 0.75rem;
+    z-index: 0;
+}
+
+/* Foto aslinya butuh z-index lebih tinggi supaya di atas si dekorasi */
+.photo-decoration + img {
+    z-index: 1;
+}
+
+/* ============================================= */
+/* STRUKTUR ORGANISASI — garis penghubung pakai CSS murni */
+/* ============================================= */
+
+.struktur-top {
+    display: flex;
+    justify-content: center;
+}
+
+/* Garis vertikal tunggal dari kotak "Kepala Sekolah" turun ke garis horizontal */
+.struktur-vline {
+    width: 1px;
+    height: 32px;
+    background: #D1D5DB;
+    margin: 0 auto;
+}
+
+/* Container 4 kotak wakil */
+.struktur-children {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* di HP: 2 kolom */
+    gap: 24px;
+    padding-top: 32px;
+}
+
+@media (min-width: 1024px) {
+    .struktur-children {
+        grid-template-columns: repeat(4, 1fr); /* di desktop: 4 kolom sejajar */
+    }
+
+    /* Garis horizontal yang menghubungkan ke-4 kotak, hanya muncul di desktop.
+       left/right 12.5% dipilih karena itu posisi tengah kolom pertama & terakhir
+       ketika ada 4 kolom sama lebar (100% / 8 = 12.5%). */
+    .struktur-children::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 12.5%;
+        right: 12.5%;
+        height: 1px;
+        background: #D1D5DB;
+    }
+
+    /* Garis vertikal kecil dari garis horizontal turun ke tiap kotak wakil */
+    .struktur-child {
+        position: relative;
+    }
+
+    .struktur-child::before {
+        content: '';
+        position: absolute;
+        top: -32px;
+        left: 50%;
+        width: 1px;
+        height: 32px;
+        background: #D1D5DB;
+    }
+}

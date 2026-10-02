@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+@theme {
+    --color-navy: #0B1E3F;
+    --color-navy-light: #13284D;
+    --color-gold: #F5B301;
+    --color-gold-dark: #D99A00;
+
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+}
+
+
+@source inline("border-navy border-gold bg-navy/10 bg-gold/10 text-navy text-gold");
+
+body {
+    font-family: 'Poppins', sans-serif;
+}

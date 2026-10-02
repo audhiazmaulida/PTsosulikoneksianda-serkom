@@ -1,0 +1,15 @@
+
+.thumb-collage {
+    background-size: auto 220%;   /* zoom 2.2x tinggi asli, biar cuma 1 foto yang muat */
+    background-repeat: no-repeat;
+}
+
+/* Nampilin foto ATAS dari kolase (buang bagian bawah) */
+.thumb-collage-top {
+    background-position: top center;
+}
+
+/* Nampilin foto BAWAH dari kolase (buang bagian atas) */
+.thumb-collage-bottom {
+    background-position: bottom center;
+}

@@ -1,0 +1,22 @@
+/* Card artikel sedikit terangkat saat di-hover, kasih kesan interaktif */
+.artikel-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.artikel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(11, 30, 63, 0.15);
+}
+
+/* Sembunyikan card yang tidak lolos filter/pencarian (di-toggle oleh artikel.js) */
+.artikel-card.is-hidden {
+    display: none;
+}
+
+/* FOTO KOLASE — untuk file gambar yang isinya 2 foto */
+/* digabung jadi 1 (ada garis putih di tengah).       */
+.thumb-collage {
+    background-size: auto 220%;   /* zoom 2.2x tinggi asli, biar cuma foto atas yang muat */
+    background-position: top center;
+    background-repeat: no-repeat;
+}

@@ -1,0 +1,62 @@
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -10;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(11, 30, 63, 0.85) 0%,
+        rgba(11, 30, 63, 0.45) 55%,
+        rgba(11, 30, 63, 0.15) 100%
+    );
+}
+
+/* Di HP, foto hero biasanya landscape dan teks jadi sulit terbaca kalau overlay
+   cuma gradasi horizontal. Tambahkan lapisan gradasi vertikal khusus mobile
+   supaya teks tetap kontras di atas foto. */
+@media (max-width: 640px) {
+    .hero-overlay {
+        background:
+            linear-gradient(180deg, rgba(11, 30, 63, 0.75) 0%, rgba(11, 30, 63, 0.55) 60%, rgba(11, 30, 63, 0.35) 100%);
+    }
+}
+
+.feature-cards {
+    margin-top: -6rem; /* menarik card ke atas supaya menimpa bagian bawah hero (desktop) */
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 1024px) {
+    .feature-cards {
+        margin-top: -4rem; /* tablet */
+    }
+}
+
+@media (max-width: 640px) {
+    .feature-cards {
+        margin-top: -2.5rem; /* mobile: overlap dikurangi supaya tidak menutupi teks hero */
+        margin-bottom: 2rem;
+    }
+}
+
+.stats-section {
+    /* Sedikit padding ekstra di atas supaya ada jarak dari card yang overlap */
+    position: relative;
+    z-index: 10;
+}
+
+.thumb-collage {
+    background-size: auto 220%;
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 640px) {
+    .thumb-collage {
+        background-size: auto 160%;
+    }
+}
