@@ -13,8 +13,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('slug')->unique();
             $table->string('kategori');
-            $table->unsignedBigInteger('harga');
-            $table->string('stok');
+            $table->unsignedBigInteger('harga')->nullable(); // opsional: kosong = "hubungi kami"
             $table->text('deskripsi')->nullable();
             $table->string('foto')->nullable();
             $table->timestamps();

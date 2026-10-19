@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Kontak Kami - SMK Negeri 4 Bogor')
+@section('title', 'Kontak Kami - PT Solusi Koneksi Anda')
 
 @section('content')
 
@@ -11,7 +11,7 @@
             <h1 class="text-navy text-3xl md:text-4xl font-extrabold mb-3">Kontak Kami</h1>
             <p class="text-gray-500 max-w-2xl mb-10">
                 Kami siap membantu Anda. Silakan hubungi kami melalui formulir di bawah ini atau
-                kunjungi alamat resmi kami untuk informasi lebih lanjut mengenai SMK Negeri 4 Bogor.
+                kunjungi kantor kami untuk informasi lebih lanjut mengenai layanan PT Solusi Koneksi Anda.
             </p>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -64,8 +64,8 @@
                     {{-- Peta lokasi --}}
                     <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-2">
                         <iframe
-                            src="https://maps.google.com/maps?q=SMK%20Negeri%204%20Bogor&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                            class="w-full h-72 rounded-lg border-0" loading="lazy" title="Peta Lokasi SMK Negeri 4 Bogor">
+                            src="https://maps.google.com/maps?q=Jl.%20Raya%20Pajajaran%20Bogor&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            class="w-full h-72 rounded-lg border-0" loading="lazy" title="Peta Lokasi PT Solusi Koneksi Anda">
                         </iframe>
                     </div>
 

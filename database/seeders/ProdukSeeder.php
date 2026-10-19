@@ -9,27 +9,56 @@ use Illuminate\Support\Str;
 class ProdukSeeder extends Seeder
 {
     /**
-     * Pindahin 8 produk yang tadinya hardcode di ProdukController
-     * ke database, biar kontennya gak ilang pas kita ganti sistem.
-     * Jalankan sekali: php artisan db:seed --class=ProdukSeeder
+     * 6 layanan PT Solusi Koneksi Anda (tanpa foto).
+     * Foto diunggah lewat halaman admin: Produk / Layanan > Edit.
+     * 'harga' null = tampil "Hubungi kami" di website.
      */
     public function run(): void
     {
-        $produks = [
-            ['foto' => 'atribut.jpeg', 'kategori' => 'Aksesoris', 'nama' => 'Atribut', 'harga' => 70000, 'stok' => 'Stok tersedia'],
-            ['foto' => 'bet.jpeg', 'kategori' => 'Aksesoris', 'nama' => 'Bet Seragam', 'harga' => 30000, 'stok' => 'Stok tersedia'],
-            ['foto' => 'bajutp.png', 'kategori' => 'Seragam', 'nama' => 'Warepack TPFL', 'harga' => 450000, 'stok' => 'Stok tersedia'],
-            ['foto' => 'bajupplg.png', 'kategori' => 'Seragam', 'nama' => 'Warepack PPLG', 'harga' => 250000, 'stok' => 'Stok tersedia'],
-            ['foto' => 'bajutjkt.png', 'kategori' => 'Seragam', 'nama' => 'Warepack TJKT', 'harga' => 250000, 'stok' => 'Stok tersedia'],
-            ['foto' => 'bajuto.png', 'kategori' => 'Seragam', 'nama' => 'Warepack TKRO', 'harga' => 450000, 'stok' => 'Stok tersedia'],
-            ['foto' => 'bajubatik.png', 'kategori' => 'Seragam', 'nama' => 'Batik Sekolah Identitas', 'harga' => 150000, 'stok' => 'Stok tersedia'],
-            ['foto' => 'bajumuslim.png', 'kategori' => 'Seragam', 'nama' => 'Muslim Sekolah Identitas', 'harga' => 150000, 'stok' => 'Stok tersedia'],
+        $layanans = [
+            [
+                'kategori' => 'Website',
+                'nama' => 'Pembuatan Website',
+                'harga' => 2500000,
+                'deskripsi' => 'Pembuatan website company profile, toko online, dan sistem informasi yang responsif, cepat, dan mudah dikelola sesuai identitas bisnis Anda.',
+            ],
+            [
+                'kategori' => 'Aplikasi',
+                'nama' => 'Pengembangan Aplikasi',
+                'harga' => null,
+                'deskripsi' => 'Pengembangan aplikasi web dan mobile khusus untuk kebutuhan operasional perusahaan, dari analisis kebutuhan hingga implementasi dan pelatihan pengguna.',
+            ],
+            [
+                'kategori' => 'Jaringan',
+                'nama' => 'Instalasi Jaringan',
+                'harga' => 1500000,
+                'deskripsi' => 'Perancangan dan pemasangan jaringan LAN, WiFi, dan server kantor yang stabil, aman, dan siap dikembangkan seiring pertumbuhan bisnis.',
+            ],
+            [
+                'kategori' => 'Konsultasi',
+                'nama' => 'Konsultasi IT',
+                'harga' => 500000,
+                'deskripsi' => 'Pendampingan strategi teknologi informasi: pemilihan perangkat, perencanaan infrastruktur, dan transformasi digital yang sesuai anggaran.',
+            ],
+            [
+                'kategori' => 'Maintenance',
+                'nama' => 'Maintenance & Support',
+                'harga' => 750000,
+                'deskripsi' => 'Perawatan berkala dan dukungan teknis untuk website, jaringan, dan perangkat kantor agar operasional bisnis berjalan tanpa gangguan.',
+            ],
+            [
+                'kategori' => 'Keamanan',
+                'nama' => 'Pemasangan CCTV',
+                'harga' => 1800000,
+                'deskripsi' => 'Survei lokasi, pemasangan kamera CCTV, dan pengaturan akses pantau jarak jauh lewat ponsel untuk menjaga keamanan kantor dan properti.',
+            ],
         ];
 
-        foreach ($produks as $item) {
-            $item['slug'] = Str::slug($item['nama']);
-            $item['deskripsi'] = null;
-            Produk::create($item);
+        foreach ($layanans as $item) {
+            Produk::updateOrCreate(
+                ['slug' => Str::slug($item['nama'])],
+                $item
+            );
         }
     }
 }

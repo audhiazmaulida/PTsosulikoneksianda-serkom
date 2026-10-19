@@ -13,8 +13,8 @@
 
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div>
-            <h1 class="text-xl font-bold text-navy mb-1">Kelola Galeri Sekolah</h1>
-            <p class="text-sm text-gray-500">Daftar dokumentasi kegiatan dan fasilitas sekolah.</p>
+            <h1 class="text-xl font-bold text-navy mb-1">Kelola Galeri Kegiatan</h1>
+            <p class="text-sm text-gray-500">Daftar dokumentasi kegiatan perusahaan.</p>
         </div>
         <a href="{{ route('admin.galeri.create') }}"
            class="bg-navy hover:bg-navy-light text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors whitespace-nowrap">
@@ -55,8 +55,8 @@
                             @php
                                 $badgeColor = match ($galeri->kategori) {
                                     'Kegiatan' => 'bg-slate-200 text-slate-700',
-                                    'Fasilitas' => 'bg-blue-100 text-blue-700',
-                                    'Prestasi' => 'bg-gold/20 text-gold-dark',
+                                    'Kantor' => 'bg-blue-100 text-blue-700',
+                                    'Proyek' => 'bg-gold/20 text-gold-dark',
                                     default => 'bg-gray-200 text-gray-600',
                                 };
                             @endphp

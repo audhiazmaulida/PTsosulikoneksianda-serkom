@@ -8,53 +8,24 @@ use Illuminate\View\View;
 class ArtikelController extends Controller
 {
     /**
-     * Daftar nama file foto lama yang isinya kolase (2 foto digabung jadi 1 file,
-     * ada garis putih di tengah) — peninggalan desain awal sebelum CRUD dinamis.
-     * Kalau ada foto baru yang di-upload lewat form Tambah Artikel, otomatis
-     * TIDAK masuk daftar ini, jadi tetap tampil normal (tidak di-crop/zoom).
-     */
-    private const FOTO_KOLASE = [
-        'artikel5.webp',
-        'artikel6.jpg',
-        'artikel7.webp',
-        'artikel9.webp',
-        'artikel11.jpeg',
-        'artikel12.webp',
-        'artikel13.webp',
-        'artikel14.webp',
-    ];
-
-    private function isFotoKolase(?string $urlFoto): bool
-    {
-        if (! $urlFoto) {
-            return false;
-        }
-
-        $namaFile = basename($urlFoto);
-
-        return in_array($namaFile, self::FOTO_KOLASE, true);
-    }
-
-    /**
-     * Warna badge per kategori. Class Tailwind di sini ditulis LENGKAP
-     * (bukan digabung dinamis kayak "bg-{{ $x }}-100") supaya Tailwind v4
-     * bisa mendeteksinya otomatis dari teks file ini saat build.
+     * Warna badge per kategori. Class Tailwind ditulis LENGKAP (tidak digabung dinamis)
+     * supaya Tailwind bisa mendeteksinya saat build.
      */
     private function badgeClass(string $kategori): string
     {
         return match ($kategori) {
-            'Kegiatan'        => 'bg-slate-200 text-slate-700',
-            'Prestasi'        => 'bg-gold/20 text-gold-dark',
-            'Pengumuman'      => 'bg-gray-200 text-gray-600',
-            'Lingkungan'      => 'bg-green-100 text-green-700',
-            'Ekstrakurikuler' => 'bg-blue-100 text-blue-700',
-            'Edukasi'         => 'bg-purple-100 text-purple-700',
-            default           => 'bg-gray-200 text-gray-600',
+            'Kegiatan'    => 'bg-slate-200 text-slate-700',
+            'Teknologi'   => 'bg-blue-100 text-blue-700',
+            'Pengumuman'  => 'bg-gray-200 text-gray-600',
+            'Tips'        => 'bg-green-100 text-green-700',
+            'Proyek'      => 'bg-gold/20 text-gold-dark',
+            'Edukasi'     => 'bg-purple-100 text-purple-700',
+            default       => 'bg-gray-200 text-gray-600',
         };
     }
 
     /**
-     * Tampilkan halaman Artikel & Berita, narik data asli dari database.
+     * Halaman daftar Artikel / Informasi Terkini, data asli dari database.
      */
     public function index(): View
     {
@@ -63,16 +34,39 @@ class ArtikelController extends Controller
             ->get()
             ->map(function (Artikel $artikel) {
                 return [
+                    'id'          => $artikel->id,
                     'thumbnail'   => $artikel->gambar_url,
                     'kategori'    => $artikel->kategori,
                     'judul'       => $artikel->judul,
                     'ringkasan'   => $artikel->deskripsi,
-                    'tanggal'     => optional($artikel->tanggal_publikasi)->translatedFormat('d F Y'),
+                    'tanggal'     => optional($artikel->tanggal_publikasi)->locale('id')->translatedFormat('d F Y'),
                     'badge_class' => $this->badgeClass($artikel->kategori),
-                    'is_collage'  => $this->isFotoKolase($artikel->gambar_url),
                 ];
             });
 
         return view('pages.artikel', compact('artikels'));
+    }
+
+    /**
+     * Halaman detail satu artikel (/artikel/{id}).
+     * Laravel otomatis mencari Artikel berdasarkan id di URL; kalau tidak ada -> halaman 404.
+     */
+    public function show(Artikel $artikel): View
+    {
+        // Isi artikel dipecah per baris -> tiap baris jadi satu paragraf
+        $paragraf = array_values(array_filter(
+            array_map('trim', preg_split('/\R/', (string) $artikel->deskripsi))
+        ));
+
+        // 3 artikel terbaru lainnya untuk bagian "Artikel Lainnya"
+        $lainnya = Artikel::query()
+            ->where('id', '!=', $artikel->id)
+            ->orderByDesc('tanggal_publikasi')
+            ->take(3)
+            ->get();
+
+        $badgeClass = $this->badgeClass($artikel->kategori);
+
+        return view('pages.artikel-show', compact('artikel', 'paragraf', 'lainnya', 'badgeClass'));
     }
 }

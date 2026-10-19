@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Dashboard - SMK Negeri 4 Bogor')</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Admin Dashboard - PT Solusi Koneksi Anda')</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}">    <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
@@ -25,22 +25,22 @@
                 </div>
                 <div>
                     <p class="text-sm font-semibold">{{ auth()->user()->name ?? 'Administrator' }}</p>
-                    <p class="text-xs text-gray-400">SMKN 4 KOTA BOGOR</p>
+                    <p class="text-xs text-gray-400">PT Solusi Koneksi Anda</p>
                 </div>
             </div>
 
             {{-- Menu navigasi --}}
             <nav class="flex-1 px-4 py-6 space-y-1 text-sm">
                 @php
-                    $menus = [
-                        ['label' => 'Dashboard', 'icon' => 'dashboard.png', 'route' => 'admin.dashboard', 'pattern' => 'admin.dashboard'],
-                        ['label' => 'Artikel', 'icon' => 'artikel.png', 'route' => 'admin.artikel.index', 'pattern' => 'admin.artikel.*'],
-                        ['label' => 'Produk', 'icon' => 'produk.png', 'route' => 'admin.produk.index', 'pattern' => 'admin.produk.*'],
-                        ['label' => 'Galeri', 'icon' => 'galeri.png', 'route' => 'admin.galeri.index', 'pattern' => 'admin.galeri.*'],
-                        ['label' => 'Ekstrakurikuler', 'icon' => 'ekskul.png', 'route' => 'admin.ekskul.index', 'pattern' => 'admin.ekskul.*'],
-                        ['label' => 'Kontak', 'icon' => 'kontak.png', 'route' => 'admin.kontak.index', 'pattern' => 'admin.kontak.*'],
-                    ];
-                @endphp
+                   $menus = [
+                                ['label' => 'Dashboard', 'icon' => 'dashboard.png', 'route' => 'admin.dashboard', 'pattern' => 'admin.dashboard'],
+                                ['label' => 'Profil Perusahaan', 'icon' => 'dashboard.png', 'route' => 'admin.profil.edit', 'pattern' => 'admin.profil.*'], 
+                                ['label' => 'Produk / Layanan', 'icon' => 'produk.png', 'route' => 'admin.produk.index', 'pattern' => 'admin.produk.*'],
+                                ['label' => 'Artikel', 'icon' => 'artikel.png', 'route' => 'admin.artikel.index', 'pattern' => 'admin.artikel.*'],
+                                ['label' => 'Galeri', 'icon' => 'galeri.png', 'route' => 'admin.galeri.index', 'pattern' => 'admin.galeri.*'],
+                                ['label' => 'Kontak', 'icon' => 'kontak.png', 'route' => 'admin.kontak.index', 'pattern' => 'admin.kontak.*'],
+                            ];
+                  @endphp
 
                 @foreach ($menus as $menu)
                     <a href="{{ route($menu['route']) }}"

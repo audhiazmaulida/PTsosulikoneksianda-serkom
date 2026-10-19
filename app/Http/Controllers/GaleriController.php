@@ -18,7 +18,7 @@ class GaleriController extends Controller
             ->orderByDesc('tanggal')
             ->get();
 
-        $filters = ['Semua', 'Kegiatan', 'Fasilitas', 'Prestasi'];
+                $filters = ['Semua', 'Kegiatan', 'Kantor', 'Proyek'];
 
         return view('pages.galeri', compact('galeris', 'filters', 'kategoriAktif'));
     }

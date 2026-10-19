@@ -14,12 +14,12 @@ class KontakController extends Controller
      */
     public function index(): View
     {
-        $infoKontak = [
-            'alamat' => 'Jl. Raya Tajur, Kp. Buntar RT.02/RW.08 Kec. Bogor Selatan, Kota Bogor, Jawa Barat',
-            'telepon' => '(0251) 7547381',
-            'email' => 'smkn4@smkn4bogor.sch.id',
+               $infoKontak = [
+            'alamat' => 'Jl. Raya Pajajaran No. 90, Kota Bogor, Jawa Barat 16153',
+            'telepon' => '(0251) 8123456',
+            'email' => 'info@solusikoneksianda.co.id',
             'jam_operasional' => [
-                ['hari' => 'Senin - Jumat', 'jam' => '06:30 - 17:00', 'tutup' => false],
+                ['hari' => 'Senin - Jumat', 'jam' => '08:00 - 17:00', 'tutup' => false],
                 ['hari' => 'Sabtu - Minggu', 'jam' => 'Tutup', 'tutup' => true],
             ],
         ];
@@ -48,6 +48,6 @@ class KontakController extends Controller
         // cuma bisa dibaca di request BERIKUTNYA doang (pas redirect ini).
         return redirect()
             ->route('kontak')
-            ->with('success', 'Pesan kamu berhasil dikirim! Kami akan segera menghubungi kamu kembali.');
+            ->with('success', 'Pesan Anda berhasil dikirim! Tim kami akan segera menghubungi Anda kembali.');
     }
 }

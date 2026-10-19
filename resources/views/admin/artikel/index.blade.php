@@ -14,7 +14,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div>
             <h1 class="text-xl font-bold text-navy mb-1">Kelola Artikel</h1>
-            <p class="text-sm text-gray-500">Kelola berita, pengumuman, dan artikel sekolah di sini.</p>
+            <p class="text-sm text-gray-500">Kelola artikel dan informasi terkini perusahaan di sini.</p>
         </div>
         <a href="{{ route('admin.artikel.create') }}"
            class="bg-navy hover:bg-navy-light text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors whitespace-nowrap">

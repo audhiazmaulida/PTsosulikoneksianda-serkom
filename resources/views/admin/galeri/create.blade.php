@@ -6,7 +6,7 @@
 @section('content')
 
     <h1 class="text-xl font-bold text-navy mb-1">Tambah Dokumentasi Baru</h1>
-    <p class="text-sm text-gray-500 mb-6">Isi form di bawah ini untuk menambahkan dokumentasi kegiatan/fasilitas sekolah.</p>
+    <p class="text-sm text-gray-500 mb-6">Isi form di bawah ini untuk menambahkan dokumentasi kegiatan perusahaan.</p>
 
     <form action="{{ route('admin.galeri.store') }}" method="POST" enctype="multipart/form-data">
         @csrf

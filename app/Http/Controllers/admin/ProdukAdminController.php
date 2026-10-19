@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 class ProdukAdminController extends Controller
 {
     /**
-     * Menampilkan daftar produk (halaman "Manajemen Produk").
+     * Daftar layanan (halaman "Manajemen Produk / Layanan").
      */
     public function index(Request $request)
     {
@@ -26,7 +26,7 @@ class ProdukAdminController extends Controller
     }
 
     /**
-     * Menampilkan form "Tambah Produk Baru".
+     * Form "Tambah Layanan Baru".
      */
     public function create()
     {
@@ -34,36 +34,30 @@ class ProdukAdminController extends Controller
     }
 
     /**
-     * Menyimpan produk baru ke database.
+     * Simpan layanan baru.
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'nama'      => 'required|string|max:255',
             'kategori'  => 'required|string|max:100',
-            'harga'     => 'required|integer|min:0',
-            'stok'      => 'required|string|max:100',
-            'deskripsi' => 'nullable|string',
+            'harga'     => 'nullable|integer|min:0',
+            'deskripsi' => 'required|string',
             'foto'      => 'required|image|mimes:png,jpg,jpeg|max:5120', // max 5MB
         ]);
 
         $validated['slug'] = Str::slug($validated['nama']) . '-' . uniqid();
-
-        // Simpan file langsung ke public/images
-        $file = $request->file('foto');
-        $namaFile = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('images'), $namaFile);
-        $validated['foto'] = $namaFile;
+        $validated['foto'] = $this->simpanFoto($request);
 
         Produk::create($validated);
 
         return redirect()
             ->route('admin.produk.index')
-            ->with('success', 'Produk berhasil ditambahkan.');
+            ->with('success', 'Layanan berhasil ditambahkan.');
     }
 
     /**
-     * Menampilkan form edit produk.
+     * Form edit layanan.
      */
     public function edit(Produk $produk)
     {
@@ -71,53 +65,63 @@ class ProdukAdminController extends Controller
     }
 
     /**
-     * Mengupdate produk yang sudah ada.
+     * Update layanan.
      */
     public function update(Request $request, Produk $produk)
     {
         $validated = $request->validate([
             'nama'      => 'required|string|max:255',
             'kategori'  => 'required|string|max:100',
-            'harga'     => 'required|integer|min:0',
-            'stok'      => 'required|string|max:100',
-            'deskripsi' => 'nullable|string',
+            'harga'     => 'nullable|integer|min:0',
+            'deskripsi' => 'required|string',
             'foto'      => 'nullable|image|mimes:png,jpg,jpeg|max:5120',
         ]);
 
         $validated['slug'] = Str::slug($validated['nama']) . '-' . $produk->id;
 
         if ($request->hasFile('foto')) {
-            // Hapus foto lama kalau ada
-            if ($produk->foto && file_exists(public_path('images/' . $produk->foto))) {
-                unlink(public_path('images/' . $produk->foto));
-            }
-
-            $file = $request->file('foto');
-            $namaFile = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images'), $namaFile);
-            $validated['foto'] = $namaFile;
+            $this->hapusFoto($produk->foto);
+            $validated['foto'] = $this->simpanFoto($request);
+        } else {
+            unset($validated['foto']);
         }
 
         $produk->update($validated);
 
         return redirect()
             ->route('admin.produk.index')
-            ->with('success', 'Produk berhasil diperbarui.');
+            ->with('success', 'Layanan berhasil diperbarui.');
     }
 
     /**
-     * Menghapus produk.
+     * Hapus layanan.
      */
     public function destroy(Produk $produk)
     {
-        if ($produk->foto && file_exists(public_path('images/' . $produk->foto))) {
-            unlink(public_path('images/' . $produk->foto));
-        }
-
+        $this->hapusFoto($produk->foto);
         $produk->delete();
 
         return redirect()
             ->route('admin.produk.index')
-            ->with('success', 'Produk berhasil dihapus.');
+            ->with('success', 'Layanan berhasil dihapus.');
+    }
+
+    /**
+     * Simpan foto ke public/images/layanan, kembalikan path relatif ("layanan/xxx.jpg").
+     */
+    private function simpanFoto(Request $request): string
+    {
+        $file = $request->file('foto');
+        $namaFile = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('images/layanan'), $namaFile);
+
+        return 'layanan/' . $namaFile;
+    }
+
+    private function hapusFoto(?string $foto): void
+    {
+        if ($foto && file_exists(public_path('images/' . $foto))) {
+            unlink(public_path('images/' . $foto));
+        }
     }
 }

@@ -14,7 +14,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div>
             <h1 class="text-xl font-bold text-navy mb-1">Kelola Pesan & Kontak Masuk</h1>
-            <p class="text-sm text-gray-500">Kelola pesan dari pengunjung website dan informasi kontak resmi SMK Negeri 4 Bogor.</p>
+            <p class="text-sm text-gray-500">Kelola pesan dari pengunjung website PT Solusi Koneksi Anda.</p>
         </div>
     </div>
 

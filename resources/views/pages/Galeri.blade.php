@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Galeri Sekolah - SMK Negeri 4 Bogor')
+@section('title', 'Galeri Kegiatan - PT Solusi Koneksi Anda')
 
 @section('content')
 
     {{-- HEADER BANNER --}}
     <section class="bg-navy">
         <div class="max-w-3xl mx-auto px-6 lg:px-10 py-16 text-center">
-            <h1 class="text-white text-3xl md:text-4xl font-extrabold mb-3">Galeri Sekolah</h1>
+            <h1 class="text-white text-3xl md:text-4xl font-extrabold mb-3">Galeri Kegiatan</h1>
             <p class="text-gray-300 text-sm md:text-base">
-                Dokumentasi berbagai kegiatan, fasilitas, prestasi dan momen berharga SMK Negeri 4 Bogor.
+                Dokumentasi kegiatan, suasana kantor, dan proyek yang telah dikerjakan PT Solusi Koneksi Anda.
             </p>
         </div>
     </section>

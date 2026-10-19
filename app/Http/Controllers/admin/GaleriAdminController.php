@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 
 class GaleriAdminController extends Controller
 {
-    private array $kategoriOptions = ['Kegiatan', 'Fasilitas', 'Prestasi'];
+        private array $kategoriOptions = ['Kegiatan', 'Kantor', 'Proyek'];
 
     /**
      * Tampilkan daftar galeri + fitur cari kategori.

@@ -8,7 +8,7 @@ use Illuminate\View\View;
 class ProdukController extends Controller
 {
     /**
-     * Tampilkan halaman Produk (E-Koperasi & Atribut) — sekarang dari database.
+         * Tampilkan halaman Produk / Layanan ...
      */
     public function index(): View
     {

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin Dashboard - SMK Negeri 4 Bogor')
+@section('title', 'Admin Dashboard - PT Solusi Koneksi Anda')
 @section('page-title', 'Admin Dashboard')
 
 @section('content')

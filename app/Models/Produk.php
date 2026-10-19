@@ -20,7 +20,6 @@ class Produk extends Model
         'slug',
         'kategori',
         'harga',
-        'stok',
         'deskripsi',
         'foto',
     ];
@@ -30,20 +29,23 @@ class Produk extends Model
     ];
 
     /**
-     * Accessor: $produk->formatted_harga -> "Rp 70.000"
+     * Accessor: $produk->formatted_harga -> "Rp 2.500.000" atau "Hubungi kami"
      */
     public function getFormattedHargaAttribute(): string
     {
+        if (! $this->harga) {
+            return 'Hubungi kami';
+        }
+
         return 'Rp ' . number_format($this->harga, 0, ',', '.');
     }
 
     /**
      * Accessor: $produk->gambar -> URL lengkap foto.
      *
-     * Diperbaiki supaya support 2 sumber foto:
-     * 1. Foto LAMA (dari seeder) — filenya ada manual di public/images/
-     * 2. Foto BARU (di-upload admin lewat form) — disimpan Laravel
-     *    di storage/app/public/produk/, diakses lewat /storage/...
+     * Mendukung 2 sumber foto:
+     * 1. Foto dari seeder / diunggah admin: file ada di public/images/
+     * 2. Foto lama di storage/app/public/, diakses lewat /storage/...
      */
     public function getGambarAttribute(): ?string
     {

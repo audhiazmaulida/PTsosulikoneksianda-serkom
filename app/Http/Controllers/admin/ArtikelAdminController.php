@@ -15,7 +15,7 @@ class ArtikelAdminController extends Controller
      * Kategori yang tersedia di dropdown form (dipakai create & edit).
      */
     private array $kategoriOptions = [
-        'Kegiatan', 'Prestasi', 'Pengumuman', 'Lingkungan', 'Ekstrakurikuler', 'Edukasi',
+               'Kegiatan', 'Teknologi', 'Pengumuman', 'Tips', 'Proyek', 'Edukasi',
     ];
 
     /**

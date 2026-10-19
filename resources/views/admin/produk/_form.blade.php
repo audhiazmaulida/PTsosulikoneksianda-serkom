@@ -1,10 +1,10 @@
 {{--
-    Partial form Produk, dipakai bareng oleh create.blade.php dan edit.blade.php.
+    Partial form Layanan, dipakai bareng oleh create.blade.php dan edit.blade.php.
     Variabel $produk: null kalau mode tambah, berisi model Produk kalau mode edit.
 --}}
 
 <div class="mb-6">
-    <label class="block text-sm font-semibold text-navy mb-2">Unggah Foto Produk</label>
+    <label class="block text-sm font-semibold text-navy mb-2">Unggah Foto Layanan</label>
     <div id="uploadBox"
          class="relative border-2 border-dashed border-gray-200 rounded-lg bg-gray-50 min-h-[220px] flex items-center justify-center cursor-pointer overflow-hidden">
         <input type="file" name="foto" id="thumbnailInput" accept=".png,.jpg,.jpeg" hidden>
@@ -27,8 +27,8 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
     <div class="md:col-span-2">
-        <label for="nama" class="block text-sm font-semibold text-navy mb-2">Nama Produk</label>
-        <input type="text" name="nama" id="nama" placeholder="Contoh: Seragam Batik SMA, Topi Upacara"
+        <label for="nama" class="block text-sm font-semibold text-navy mb-2">Nama Layanan</label>
+        <input type="text" name="nama" id="nama" placeholder="Contoh: Pembuatan Website, Instalasi Jaringan"
                value="{{ old('nama', optional($produk)->nama) }}"
                class="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 text-sm focus:outline-none focus:border-navy focus:bg-white">
         <p class="text-xs text-gray-400 mt-1">Gunakan nama yang jelas dan deskriptif</p>
@@ -44,8 +44,9 @@
             @if (! $produk)
                 <option value="" disabled {{ old('kategori') ? '' : 'selected' }}>Pilih kategori</option>
             @endif
-            <option value="Seragam" @selected(old('kategori', optional($produk)->kategori) == 'Seragam')>Seragam</option>
-            <option value="Aksesoris" @selected(old('kategori', optional($produk)->kategori) == 'Aksesoris')>Aksesoris</option>
+            @foreach (['Website', 'Aplikasi', 'Jaringan', 'Konsultasi', 'Maintenance', 'Keamanan'] as $opsi)
+                <option value="{{ $opsi }}" @selected(old('kategori', optional($produk)->kategori) == $opsi)>{{ $opsi }}</option>
+            @endforeach
         </select>
         @error('kategori')
             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -53,34 +54,23 @@
     </div>
 
     <div>
-        <label for="stok" class="block text-sm font-semibold text-navy mb-2">Status Stok</label>
-        <select name="stok" id="stok"
-                class="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 text-sm focus:outline-none focus:border-navy focus:bg-white">
-            <option value="Stok tersedia" @selected(old('stok', optional($produk)->stok ?? 'Stok tersedia') == 'Stok tersedia')>Stok tersedia</option>
-            <option value="Stok habis" @selected(old('stok', optional($produk)->stok) == 'Stok habis')>Stok habis</option>
-        </select>
-        @error('stok')
-            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-        @enderror
-    </div>
-
-    <div class="md:col-span-2">
-        <label for="harga" class="block text-sm font-semibold text-navy mb-2">Harga Produk</label>
-        <div class="flex items-stretch border border-gray-200 rounded-lg bg-gray-50 overflow-hidden focus-within:border-navy focus-within:bg-white max-w-sm">
+        <label for="harga" class="block text-sm font-semibold text-navy mb-2">Harga Mulai Dari (Opsional)</label>
+        <div class="flex items-stretch border border-gray-200 rounded-lg bg-gray-50 overflow-hidden focus-within:border-navy focus-within:bg-white">
             <span class="flex items-center px-4 bg-gray-100 text-gray-500 font-semibold text-sm border-r border-gray-200">Rp</span>
-            <input type="number" name="harga" id="harga" min="0" placeholder="0"
+            <input type="number" name="harga" id="harga" min="0" placeholder="Kosongkan jika harga disesuaikan kebutuhan"
                    value="{{ old('harga', optional($produk)->harga) }}"
                    class="flex-1 px-4 py-3 bg-transparent text-sm focus:outline-none">
         </div>
+        <p class="text-xs text-gray-400 mt-1">Jika kosong, di website tampil "Hubungi kami".</p>
         @error('harga')
             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
         @enderror
     </div>
 
     <div class="md:col-span-2">
-        <label for="deskripsi" class="block text-sm font-semibold text-navy mb-2">Deskripsi Singkat (Opsional)</label>
+        <label for="deskripsi" class="block text-sm font-semibold text-navy mb-2">Deskripsi Layanan</label>
         <textarea name="deskripsi" id="deskripsi" rows="5"
-                  placeholder="Tambahkan detail spesifik seperti bahan atau ukuran yang tersedia..."
+                  placeholder="Jelaskan cakupan layanan, manfaat, dan hasil yang didapat klien..."
                   class="w-full px-4 py-3 border border-gray-200 rounded-lg bg-gray-50 text-sm focus:outline-none focus:border-navy focus:bg-white">{{ old('deskripsi', optional($produk)->deskripsi) }}</textarea>
         @error('deskripsi')
             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -92,5 +82,5 @@
     <a href="{{ route('admin.produk.index') }}"
        class="px-5 py-2.5 rounded-lg border border-gray-200 text-sm font-semibold text-gray-600 hover:bg-gray-50">Batal</a>
     <button type="submit"
-            class="px-5 py-2.5 rounded-lg bg-navy hover:bg-navy-light text-white text-sm font-semibold">Simpan Produk</button>
+            class="px-5 py-2.5 rounded-lg bg-navy hover:bg-navy-light text-white text-sm font-semibold">Simpan Layanan</button>
 </div>
